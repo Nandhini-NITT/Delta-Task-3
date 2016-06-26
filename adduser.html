@@ -4,7 +4,7 @@
 	<link rel="stylesheet" type="text/css" href="register.css">
 </head>
 <body>
-	<form action="adduser.php" method="post" id="fields" onsubmit="return validateForm()">
+	<form enctype="multipart/form-data" action="adduser.php" method="post" id="fields" onsubmit="return validateForm()">
 		<p><span class="error">* required field.</span></p>
 		<table>
 			<tr>
@@ -31,6 +31,12 @@
 				<td>Password:</td>
 				<td><input type="password" name="pass" required></td>
 				<td><span class="error">*</span><td>
+			</tr>
+			<tr>
+				<td>Profile Picture</td>
+				<input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
+				<td><input name="userfile" type="file" required/></td>
+				<td><span class="error">*</span></td>
 			</tr>
 		</table>
 		<br><br><br>
