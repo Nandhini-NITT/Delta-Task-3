@@ -1,13 +1,19 @@
 #fields {
-margin:0 auto;
-position:absolute;
-left:50%;
-top:50%;
-transform:translate(-50%,-50%);
+float:right;
+position:relative;
+top:30%;
 }
 .error{
 	color:red;
 }
 input{
 	background-color:white !important;
+	padding:5px;
+	
 }
+
+.header
+{
+	background-color:aqua;
+}
+

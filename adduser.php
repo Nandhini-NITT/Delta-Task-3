@@ -28,7 +28,12 @@ include("connect.php");
 		
 		if($stmt->execute()){
 			echo "Update successful";
-			
+			$_SESSION["user"]=$name;
+			$_SESSION["dp"]=$img;
+			$_SESSION["email"]=$email;
+			$_SESSION["phno"]=$phno;
+			$_SESSION["gender"]=$gender;
+			header("Location: profile.php");
 		}
 		else{
         echo "Update failed";
