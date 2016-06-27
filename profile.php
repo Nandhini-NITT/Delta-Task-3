@@ -2,6 +2,7 @@
 <head>
 	<title>Welcome</title>
 	<script src="jquery-1.12.2.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="bootstrap.css" rel="stylesheet" type="text/css" />
 	<link href="bootstrap.min.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" type="text/css" href="profile.css">
@@ -16,31 +17,71 @@
 	echo $_SESSION['name'];
 	echo '<br>';
 	?> &nbsp <span class='glyphicon glyphicon-search'></span><input type="text" placeholder="Find What's up with your friends" style="width:280px;"></p>
+
 <?php
 include "connect.php";
 echo '<img src="data:image/jpeg;base64,'.base64_encode( $_SESSION['dp'] ).'"/>';
 ?>
+<div id="id01" class="modal">
+	<div class="modal-content" id="change">
+		<span onclick="document.getElementById('id01').style.display='none'" class="w3-closebtn">&times;</span>
+	  </div>
+	</div>
+</div>	
 <div id="contents">
+	<h1 style="position:relative;left:25px">Contact Information</h1>
+	<hr color="black">
 	<table>
+		<div id="name">
 		<tr>
-			<td>Username</td>
-			<td><?php echo $_SESSION['user']?></td>
+			<td width="30%">Name</td>
+			<td width="40%" id="value"><?php echo $_SESSION['name']?></td>
+			<td width="20%"><button type="button" class="btn btn-default" onclick="updatename();"><span class="glyphicon glyphicon-pencil icon-success"></span> Edit</button></td>
 		</tr>
-		<tr>
+		</div>
+		<tr id="gender">
 			<td>Gender</td>
 			<td><?php echo $_SESSION['gender']?></td>
+			<td id="editname"><button type="button" class="btn btn-default" onclick="updategender();"><span class="glyphicon glyphicon-pencil icon-success"></span> Edit</button></td>
 		</tr>
-		<tr>
+		<tr id="email">
 			<td>Email</td>
 			<td><?php echo $_SESSION['email']?></td>
+			<td><button type="button" class="btn btn-default" onclick="updatemail();"><span class="glyphicon glyphicon-pencil icon-success"></span> Edit</button></td>
 		</tr>
-		<tr>
+		<tr id="phno">
 			<td>Phone number</td>
-			<td><?php echo $_SESSION['phno'] ?></td>;
+			<td><?php echo $_SESSION['phno']; ?></td>
+			<td><button type="button" class="btn btn-default" onclick="phnochange();"><span class="glyphicon glyphicon-pencil icon-success"></span> Edit</button></td>
 		</tr>
 	</table>
 	<br>
-	<input type="button" onclick="document.location.href='logout.php'" value="Logout">
+		<button align="center" style="position:relative;left:25%" onclick="updatepassword()">Change Password</button>
+	<br>
+	<br>
+	<input type="button" onclick="document.location.href='logout.php'" value="Logout" style="position:relative;left:30%">
 </div>
+<script>
+	function updatename()
+	{
+		document.getElementById("name").style.display="none";
+		var modal=document.getElementById("id01");
+		modal.style.display="block";
+		document.getElementById("change").innerHTML="<center><table><tr><td>Enter Name:</td><td><input type='text' id='newname'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
+	}
+	function send()
+	{
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+			document.getElementById("name").style.display="block";
+			document.getElementById("id01").style.display="none";
+			document.getElementById("value").innerHTML=xhttp.responseText;
+		}
+		};
+		xhttp.open("GET", "update.php?name="+document.getElementById("newname").value, true);
+		xhttp.send();
+	}
+</script>
 </body>
 </html>
