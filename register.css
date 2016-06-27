@@ -6,6 +6,10 @@ top:30%;
 .error{
 	color:red;
 }
+#errorstatus
+{
+	color:red;
+}
 input{
 	background-color:white !important;
 	padding:5px;
@@ -16,4 +20,5 @@ input{
 {
 	background-color:aqua;
 }
+
 
