@@ -9,6 +9,7 @@
 	if($_SERVER["REQUEST_METHOD"]=="POST")
 	{
 		session_start();
+		$fullname=$_POST["name"];
 		$name=$_POST["uname"];
 		$email=$_POST["email"];
 		$phno=(string) $_POST["phno"];
@@ -24,18 +25,19 @@
 			$img = file_get_contents($image);
 		}
 		include("connect.php");
-		$query = $conn->prepare("SELECT Username FROM users WHERE Phno= ? or email=?");
-		$query->bind_param('ss',$phno, $email);
+		$query = $conn->prepare("SELECT Username FROM users WHERE Phno= ? or email=? or username=?");
+		$query->bind_param('sss',$phno, $email, $name);
 		$query->execute();
 		$query->bind_result($name);
 		$query->store_result();
 		if($query->num_rows==0)
 		{
-			$stmt=$conn->prepare("INSERT INTO users (Username,email,Phno,Gender,Passcode,Image) VALUES (?, ?, ?, ?, ? ,?)");
-			$stmt->bind_param('ssssss', $name, $email, $phno, $gender, $pass,$img);
+			$stmt=$conn->prepare("INSERT INTO users (Username,Name,email,Phno,Gender,Passcode,Image) VALUES (?, ?, ?, ?, ?, ? ,?)");
+			$stmt->bind_param('sssssss', $name,$fullname, $email, $phno, $gender, $pass,$img);
 			if($stmt->execute())
 			{
 				echo "Update successful";
+				$_SESSION["name"]=$fullname;
 				$_SESSION["user"]=$name;
 				$_SESSION["dp"]=$img;
 				$_SESSION["email"]=$email;
@@ -45,7 +47,7 @@
 			}
 		}
 		else
-			$status="The emailid/password is already registered";
+			$status="The emailid/password/Username is already registered";
 			
 	}
 ?>
@@ -163,9 +165,7 @@
 	if(error==1)
 		return false;
 	else return true;
-
 	}
 </script>
 </body>
 </html>
-	
