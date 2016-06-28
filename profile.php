@@ -14,7 +14,6 @@
 	?>
 	<p align="center">Welcome  <?php	
 	session_start();
-	echo $_SESSION['name'];
 	echo '<br>';
 	?> &nbsp <span class='glyphicon glyphicon-search'></span><input type="text" placeholder="Find What's up with your friends" style="width:280px;"></p>
 
@@ -35,25 +34,31 @@ echo '<img src="data:image/jpeg;base64,'.base64_encode( $_SESSION['dp'] ).'"/>';
 		<div id="name">
 		<tr>
 			<td width="30%">Name</td>
-			<td width="40%" id="value"><?php echo $_SESSION['name']?></td>
+			<td width="40%" id="valueName"><?php echo $_SESSION['name']?></td>
 			<td width="20%"><button type="button" class="btn btn-default" onclick="updatename();"><span class="glyphicon glyphicon-pencil icon-success"></span> Edit</button></td>
 		</tr>
 		</div>
-		<tr id="gender">
+		<div id="gender">
+		<tr>
 			<td>Gender</td>
-			<td><?php echo $_SESSION['gender']?></td>
-			<td id="editname"><button type="button" class="btn btn-default" onclick="updategender();"><span class="glyphicon glyphicon-pencil icon-success"></span> Edit</button></td>
+			<td id="valueGender"><?php printf("%s",$_SESSION['gender']);?></td>
+			<td><button type="button" class="btn btn-default" onclick="updategender();"><span class="glyphicon glyphicon-pencil icon-success"></span> Edit</button></td>
 		</tr>
-		<tr id="email">
+		</div>
+		<div id="email">
+		<tr>
 			<td>Email</td>
-			<td><?php echo $_SESSION['email']?></td>
+			<td id="valueEmail"><?php echo $_SESSION['email']?></td>
 			<td><button type="button" class="btn btn-default" onclick="updatemail();"><span class="glyphicon glyphicon-pencil icon-success"></span> Edit</button></td>
 		</tr>
-		<tr id="phno">
+		</div>
+		<div id="phno">
+		<tr>
 			<td>Phone number</td>
-			<td><?php echo $_SESSION['phno']; ?></td>
-			<td><button type="button" class="btn btn-default" onclick="phnochange();"><span class="glyphicon glyphicon-pencil icon-success"></span> Edit</button></td>
+			<td id="valuePhno"><?php echo $_SESSION['phno']; ?></td>
+			<td><button type="button" class="btn btn-default" onclick="updatephno();"><span class="glyphicon glyphicon-pencil icon-success"></span> Edit</button></td>
 		</tr>
+		</div>
 	</table>
 	<br>
 		<button align="center" style="position:relative;left:25%" onclick="updatepassword()">Change Password</button>
@@ -62,26 +67,53 @@ echo '<img src="data:image/jpeg;base64,'.base64_encode( $_SESSION['dp'] ).'"/>';
 	<input type="button" onclick="document.location.href='logout.php'" value="Logout" style="position:relative;left:30%">
 </div>
 <script>
+var param="";
 	function updatename()
 	{
+		param="Name";
 		document.getElementById("name").style.display="none";
 		var modal=document.getElementById("id01");
 		modal.style.display="block";
-		document.getElementById("change").innerHTML="<center><table><tr><td>Enter Name:</td><td><input type='text' id='newname'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
+		document.getElementById("change").innerHTML="<center><table><tr><td>Enter Name:</td><td><input type='text' id='changedvalue'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
+	}
+	function updategender()
+	{
+		param="Gender";
+		document.getElementById("gender").style.display="none";
+		var modal=document.getElementById("id01");
+		modal.style.display="block";
+		document.getElementById("change").innerHTML="<center><table><tr><td>Gender:</td><td><input type='text' id='changedvalue'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
+	}
+	function updatemail()
+	{
+		param="Email";
+		document.getElementById("email").style.display="none";
+		var modal=document.getElementById("id01");
+		modal.style.display="block";
+		document.getElementById("change").innerHTML="<center><table><tr><td>Email Id:</td><td><input type='text' id='changedvalue'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
+	}
+	function updatephno()
+	{
+		param="Phno";
+		var modal=document.getElementById("id01");
+		modal.style.display="block";
+		document.getElementById("change").innerHTML="<center><table><tr><td>Phone Number:</td><td><input type='text' id='changedvalue'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
 	}
 	function send()
 	{
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 		if (xhttp.readyState == 4 && xhttp.status == 200) {
-			document.getElementById("name").style.display="block";
+			//document.getElementById(""+param+"").style.display="block";
 			document.getElementById("id01").style.display="none";
-			document.getElementById("value").innerHTML=xhttp.responseText;
+			document.getElementById("value"+param).innerHTML=xhttp.responseText;
+			
 		}
 		};
-		xhttp.open("GET", "update.php?name="+document.getElementById("newname").value, true);
+		xhttp.open("GET", "update.php?"+param+"="+document.getElementById("changedvalue").value, true);
 		xhttp.send();
 	}
+	
 </script>
 </body>
 </html>
