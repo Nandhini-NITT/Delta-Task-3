@@ -22,9 +22,9 @@ include "connect.php";
 echo '<img src="data:image/jpeg;base64,'.base64_encode( $_SESSION['dp'] ).'"/>';
 ?>
 <div id="id01" class="modal">
+	
 	<div class="modal-content" id="change">
-		<span onclick="document.getElementById('id01').style.display='none'" class="w3-closebtn">&times;</span>
-	  </div>
+		</div>
 	</div>
 </div>	
 <div id="contents">
@@ -74,7 +74,7 @@ var param="";
 		document.getElementById("name").style.display="none";
 		var modal=document.getElementById("id01");
 		modal.style.display="block";
-		document.getElementById("change").innerHTML="<center><table><tr><td>Enter Name:</td><td><input type='text' id='changedvalue'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
+		document.getElementById("change").innerHTML="<button onclick=document.getElementById('id01').style.display='none';>&times;</button><center><table><tr><td>Enter Name:</td><td><input type='text' id='changedvalue'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
 	}
 	function updategender()
 	{
@@ -82,7 +82,7 @@ var param="";
 		document.getElementById("gender").style.display="none";
 		var modal=document.getElementById("id01");
 		modal.style.display="block";
-		document.getElementById("change").innerHTML="<center><table><tr><td>Gender:</td><td><input type='text' id='changedvalue'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
+		document.getElementById("change").innerHTML="<button onclick=document.getElementById('id01').style.display='none';>&times;</button><center><table><tr><td>Gender:</td><td><input type='text' id='changedvalue'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
 	}
 	function updatemail()
 	{
@@ -90,20 +90,22 @@ var param="";
 		document.getElementById("email").style.display="none";
 		var modal=document.getElementById("id01");
 		modal.style.display="block";
-		document.getElementById("change").innerHTML="<center><table><tr><td>Email Id:</td><td><input type='text' id='changedvalue'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
+		document.getElementById("change").innerHTML="<button onclick=document.getElementById('id01').style.display='none';>&times;</button><center><table><tr><td>Email Id:</td><td><input type='email' id='changedvalue'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
 	}
 	function updatephno()
 	{
 		param="Phno";
 		var modal=document.getElementById("id01");
 		modal.style.display="block";
-		document.getElementById("change").innerHTML="<center><table><tr><td>Phone Number:</td><td><input type='text' id='changedvalue'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
+		document.getElementById("change").innerHTML="<button onclick=document.getElementById('id01').style.display='none';>&times;</button><center><table><tr><td>Phone Number:</td><td><input type='text' id='changedvalue'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
 	}
 	function send()
 	{
 		var newvalue=document.getElementById("changedvalue").value;
 		var renumber=/[0-9]/;
 		var iChars = "!@#$%^&*()+=-[]\';,./{}|\":<>?~_";
+		var relower=/[a-z]/;
+		var reupper=/[A-Z]/;
 		if(param=="Name")
 		{
 			for (var i = 0; i < newvalue.length; i++) 
@@ -119,10 +121,30 @@ var param="";
 				return;
 			}
 		}
+		else if(param=="Gender")
+		{
+			if(newvalue!="M" && newvalue!="F")
+				{
+					alert("Gender can be only M/F :M - Male F-Female");
+					return;
+				}
+		}
+		else if(param=="Phno")
+		{
+			if(newvalue.length<8 || relower.test(newvalue) ||reupper.test(newvalue) )
+			{
+				alert("Enter valid phone number");
+				return;
+			}
+		}
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 		if (xhttp.readyState == 4 && xhttp.status == 200) {
-			//document.getElementById(""+param+"").style.display="block";
+			if(xhttp.responseText=="Given Email/Phone number is already taken")
+			{
+				alert("Given Email id/Phone number is already taken");
+				return;
+			}
 			document.getElementById("id01").style.display="none";
 			document.getElementById("value"+param).innerHTML=xhttp.responseText;
 			
