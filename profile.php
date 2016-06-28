@@ -101,6 +101,24 @@ var param="";
 	}
 	function send()
 	{
+		var newvalue=document.getElementById("changedvalue").value;
+		var renumber=/[0-9]/;
+		var iChars = "!@#$%^&*()+=-[]\';,./{}|\":<>?~_";
+		if(param=="Name")
+		{
+			for (var i = 0; i < newvalue.length; i++) 
+			{
+				if (iChars.indexOf(newvalue.charAt(i)) != -1) {
+				alert ("Your string has special characters.These are not allowed.");
+				return false;
+				}
+			}
+			if(renumber.test(newvalue))
+			{
+				alert("Name Can only contain letters and spaces");
+				return;
+			}
+		}
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 		if (xhttp.readyState == 4 && xhttp.status == 200) {
@@ -110,7 +128,7 @@ var param="";
 			
 		}
 		};
-		xhttp.open("GET", "update.php?"+param+"="+document.getElementById("changedvalue").value, true);
+		xhttp.open("GET", "update.php?"+param+"="+newvalue, true);
 		xhttp.send();
 	}
 	
