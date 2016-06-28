@@ -2,17 +2,24 @@ p{
 font-family: 'Lora', serif;
 font-size:30px;
 }
-img{
+#img-holder{
 position:absolute;
 left:40%;
+}
+img{
 width:300px;
-height:300px;	
+height:300px;
+}
+.Edit{
+position:relative;
+top:143px;
+right:30px;
 }
 #contents
 {
 margin:0 auto;
 position:absolute;
-top:80%;
+top:90%;
 left:54%;
 transform:translate(-50%,-50%);
 }

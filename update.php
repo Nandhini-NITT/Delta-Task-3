@@ -7,6 +7,7 @@ $field=$param;
 $changedvalue=$value;
 }
 session_start();
+
 if($field=="Email" || $field=="Phno")
 {
 	$query = $conn->prepare("SELECT Username FROM users WHERE {$field}=?");

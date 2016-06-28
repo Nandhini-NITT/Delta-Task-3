@@ -16,11 +16,14 @@
 	session_start();
 	echo '<br>';
 	?> &nbsp <span class='glyphicon glyphicon-search'></span><input type="text" placeholder="Find What's up with your friends" style="width:280px;"></p>
-
+<div id="img-holder">
 <?php
 include "connect.php";
 echo '<img src="data:image/jpeg;base64,'.base64_encode( $_SESSION['dp'] ).'"/>';
 ?>
+<button class="Edit" onClick="updatedp();">
+          <span class="glyphicon glyphicon-pencil"></span>
+</button>
 <div id="id01" class="modal">
 	
 	<div class="modal-content" id="change">
@@ -74,7 +77,7 @@ var param="";
 		document.getElementById("name").style.display="none";
 		var modal=document.getElementById("id01");
 		modal.style.display="block";
-		document.getElementById("change").innerHTML="<button onclick=document.getElementById('id01').style.display='none';>&times;</button><center><table><tr><td>Enter Name:</td><td><input type='text' id='changedvalue'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
+		document.getElementById("change").innerHTML="<button onclick=document.getElementById('id01').style.display='none';><span class='glyphicon glyphicon-remove'></span></button><center><table><tr><td>Enter Name:</td><td><input type='text' id='changedvalue'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
 	}
 	function updategender()
 	{
@@ -82,7 +85,7 @@ var param="";
 		document.getElementById("gender").style.display="none";
 		var modal=document.getElementById("id01");
 		modal.style.display="block";
-		document.getElementById("change").innerHTML="<button onclick=document.getElementById('id01').style.display='none';>&times;</button><center><table><tr><td>Gender:</td><td><input type='text' id='changedvalue'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
+		document.getElementById("change").innerHTML="<button onclick=document.getElementById('id01').style.display='none';><span class='glyphicon glyphicon-remove'></span></button><center><table><tr><td>Gender:</td><td><input type='text' id='changedvalue'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
 	}
 	function updatemail()
 	{
@@ -90,15 +93,23 @@ var param="";
 		document.getElementById("email").style.display="none";
 		var modal=document.getElementById("id01");
 		modal.style.display="block";
-		document.getElementById("change").innerHTML="<button onclick=document.getElementById('id01').style.display='none';>&times;</button><center><table><tr><td>Email Id:</td><td><input type='email' id='changedvalue'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
+		document.getElementById("change").innerHTML="<button onclick=document.getElementById('id01').style.display='none';><span class='glyphicon glyphicon-remove'></span></button><center><table><tr><td>Email Id:</td><td><input type='email' id='changedvalue'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
 	}
 	function updatephno()
 	{
 		param="Phno";
 		var modal=document.getElementById("id01");
 		modal.style.display="block";
-		document.getElementById("change").innerHTML="<button onclick=document.getElementById('id01').style.display='none';>&times;</button><center><table><tr><td>Phone Number:</td><td><input type='text' id='changedvalue'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
+		document.getElementById("change").innerHTML="<button onclick=document.getElementById('id01').style.display='none';><span class='glyphicon glyphicon-remove'></span></button><center><table><tr><td>Phone Number:</td><td><input type='text' id='changedvalue'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
 	}
+	function updatedp()
+	{
+		param="Image";
+		var modal=document.getElementById("id01");
+		modal.style.display="block";
+		document.getElementById("change").innerHTML="<button onclick=document.getElementById('id01').style.display='none';><span class='glyphicon glyphicon-remove'></span></button><center><form enctype='multipart/form-data' action='upload.php' method='post'><table><tr><td>Profile Picture</td><td><input type='file' id='changedvalue' name='userfile'></td><td><button type='submit' name='submit' value='Submit'>Submit</button></td></tr></table></form></center>";
+	}
+	
 	function send()
 	{
 		var newvalue=document.getElementById("changedvalue").value;
