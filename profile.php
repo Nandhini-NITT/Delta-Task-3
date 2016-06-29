@@ -35,14 +35,14 @@
 	?>
 	<p align="center">Welcome  <?php	
 	echo '<br>';
-	?> &nbsp <form action="getuser.php" method="get"><button type="submit" name="submit"value="submit" class="btn btn-danger" onclick="showuser();">
-  <span class='glyphicon glyphicon-search'></span></button>
-  <input type="text" data-toggle="tooltip" data-placement="right" title="Enter username" name="search" placeholder="Find What's up with your friends" style="width:280px;"></p>
-	</form>
+	?> &nbsp 
+  <span class='glyphicon glyphicon-search'></span>
+  <input onkeyup="findmatch();" type="text" data-toggle="tooltip" data-placement="right" title="Enter username" id="search" placeholder="Find What's up with your friends" style="width:280px;"></p>
+	<div id="output"></div>
   <div id="img-holder">
 <?php
 include "connect.php";
-echo '<img id="dp" src="data:image/jpeg;base64,'.base64_encode( $_SESSION['dp'] ).'"/>';
+echo '<img id="dp" src="data:image/jpeg;base64,'.base64_encode( $row->image ).'"/>';
 ?>
 <button class="Edit" onClick="updatedp();">
           <span class="glyphicon glyphicon-pencil"></span>
@@ -94,18 +94,17 @@ echo '<img id="dp" src="data:image/jpeg;base64,'.base64_encode( $_SESSION['dp'] 
 </div>
 <script>
 var param="";
-	/*function showuser()
-	{
-		var str=document.getElementById("search").value;
-		var xmlhttp=new XMLHttpRequest();
-		xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                document.getElementById("contents").innerHTML = xmlhttp.responseText;
-            }
-        };
-        xmlhttp.open("GET","getuser.php?q="+str,true);
-        xmlhttp.send();
-	}*/
+	function findmatch(){
+		var search_text = document.getElementById('search').value;
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function(){
+			if(xmlhttp.readyState == 4 &&  xmlhttp.status == 200){
+				document.getElementById("output").innerHTML = xmlhttp.responseText;
+			}
+		}
+		xmlhttp.open('GET','getuser.php?search_text='+search_text,true);
+		xmlhttp.send();
+	}
 	function updatename()
 	{
 		param="Name";

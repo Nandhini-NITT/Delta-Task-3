@@ -22,7 +22,6 @@ if($field=="Email" || $field=="Phno")
 			$query=$conn->prepare("Update users set {$field}=? where username=?");
 			$query->bind_param('ss',$changedvalue,$_SESSION['user']);
 			$query->execute();
-			$_SESSION[$field]=$changedvalue;
-			echo $_SESSION[$field];
+			echo $changedvalue;
 		
 ?>
