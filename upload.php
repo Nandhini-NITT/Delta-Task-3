@@ -1,5 +1,6 @@
 <?php
 include "connect.php";
+session_start();
 if(!isset($_FILES['userfile']))
 		{
 			echo '<p>Please select a file</p>';
@@ -15,6 +16,9 @@ if(!isset($_FILES['userfile']))
 	{
 		header("Location: profile.php");
 		$_SESSION['dp']=$img;
+		echo $img;
 	}
+	else
+		echo "Failed";
 	
 ?>

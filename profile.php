@@ -2,6 +2,7 @@
 <head>
 	<title>Welcome</title>
 	<script src="jquery-1.12.2.min.js"></script>
+	
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="bootstrap.css" rel="stylesheet" type="text/css" />
 	<link href="bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -9,17 +10,19 @@
 	<link href='https://fonts.googleapis.com/css?family=Lora:400,700italic' rel='stylesheet' type='text/css'>
 </head>
 <body>
-	<?php if(!isset($_SESSION)==0)
+	<?php 
+		session_start();
+		if(!isset($_SESSION)==1)
 		header("Location: index.php");
+
 	?>
 	<p align="center">Welcome  <?php	
-	session_start();
 	echo '<br>';
 	?> &nbsp <span class='glyphicon glyphicon-search'></span><input type="text" placeholder="Find What's up with your friends" style="width:280px;"></p>
 <div id="img-holder">
 <?php
 include "connect.php";
-echo '<img src="data:image/jpeg;base64,'.base64_encode( $_SESSION['dp'] ).'"/>';
+echo '<img id="dp" src="data:image/jpeg;base64,'.base64_encode( $_SESSION['dp'] ).'"/>';
 ?>
 <button class="Edit" onClick="updatedp();">
           <span class="glyphicon glyphicon-pencil"></span>
@@ -37,28 +40,28 @@ echo '<img src="data:image/jpeg;base64,'.base64_encode( $_SESSION['dp'] ).'"/>';
 		<div id="name">
 		<tr>
 			<td width="30%">Name</td>
-			<td width="40%" id="valueName"><?php echo $_SESSION['name']?></td>
+			<td width="40%" id="valueName"><?php echo $_SESSION["name"];?></td>
 			<td width="20%"><button type="button" class="btn btn-default" onclick="updatename();"><span class="glyphicon glyphicon-pencil icon-success"></span> Edit</button></td>
 		</tr>
 		</div>
 		<div id="gender">
 		<tr>
 			<td>Gender</td>
-			<td id="valueGender"><?php printf("%s",$_SESSION['gender']);?></td>
+			<td id="valueGender"><?php echo $_SESSION["gender"];?></td>
 			<td><button type="button" class="btn btn-default" onclick="updategender();"><span class="glyphicon glyphicon-pencil icon-success"></span> Edit</button></td>
 		</tr>
 		</div>
 		<div id="email">
 		<tr>
 			<td>Email</td>
-			<td id="valueEmail"><?php echo $_SESSION['email']?></td>
+			<td id="valueEmail"><?php echo $_SESSION["email"];?></td>
 			<td><button type="button" class="btn btn-default" onclick="updatemail();"><span class="glyphicon glyphicon-pencil icon-success"></span> Edit</button></td>
 		</tr>
 		</div>
 		<div id="phno">
 		<tr>
 			<td>Phone number</td>
-			<td id="valuePhno"><?php echo $_SESSION['phno']; ?></td>
+			<td id="valuePhno"><?php echo $_SESSION["phno"]; ?></td>
 			<td><button type="button" class="btn btn-default" onclick="updatephno();"><span class="glyphicon glyphicon-pencil icon-success"></span> Edit</button></td>
 		</tr>
 		</div>
@@ -156,9 +159,8 @@ var param="";
 				alert("Given Email id/Phone number is already taken");
 				return;
 			}
-			document.getElementById("id01").style.display="none";
-			document.getElementById("value"+param).innerHTML=xhttp.responseText;
-			
+		document.getElementById("value"+param).innerHTML=xhttp.responseText;
+		document.getElementById("id01").style.display="none";
 		}
 		};
 		xhttp.open("GET", "update.php?"+param+"="+newvalue, true);
