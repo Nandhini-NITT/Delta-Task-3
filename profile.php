@@ -2,7 +2,6 @@
 <head>
 	<title>Welcome</title>
 	<script src="jquery-1.12.2.min.js"></script>
-	
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="bootstrap.css" rel="stylesheet" type="text/css" />
 	<link href="bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -67,7 +66,7 @@ echo '<img id="dp" src="data:image/jpeg;base64,'.base64_encode( $_SESSION['dp'] 
 		</div>
 	</table>
 	<br>
-		<button align="center" style="position:relative;left:25%" onclick="updatepassword()">Change Password</button>
+		<button align="center" style="position:relative;left:25%" onclick="updatepassword();">Change Password</button>
 	<br>
 	<br>
 	<input type="button" onclick="document.location.href='logout.php'" value="Logout" style="position:relative;left:30%">
@@ -112,7 +111,37 @@ var param="";
 		modal.style.display="block";
 		document.getElementById("change").innerHTML="<button onclick=document.getElementById('id01').style.display='none';><span class='glyphicon glyphicon-remove'></span></button><center><form enctype='multipart/form-data' action='upload.php' method='post'><table><tr><td>Profile Picture</td><td><input type='file' id='changedvalue' name='userfile'></td><td><button type='submit' name='submit' value='Submit'>Submit</button></td></tr></table></form></center>";
 	}
-	
+	function updatepassword() {
+		var modal=document.getElementById("id01");
+		modal.style.display="block";
+		var text="<button onclick=document.getElementById('id01').style.display='none';><span class='glyphicon glyphicon-remove'></span></button><center>";
+		text+="<table><tr><td>Enter old Password:</td><td><input type='password' name='oldpass' id='oldpass'></td></tr>";
+		text+="<tr><td>Enter New Password:</td><td><input type='password' name='newpass' id='newpass'></td></tr>";
+		text+="<tr><td>Confirm New Password:</td><td><input type='password' name='confirmpass' id='confirmpass'></td></tr>";
+		text+="<tr><td></td><td><button onclick='AjaxChangePass();'>Submit</button>";
+		document.getElementById("change").innerHTML=text;
+	}
+	function AjaxChangePass(){
+		var xmlHttp = new XMLHttpRequest();
+		var url="updatepassword.php";
+		var parameters = "oldpass="+document.getElementById('oldpass').value+"&newpass="+document.getElementById('newpass').value+"&confirmpass="+document.getElementById('confirmpass').value;
+		xmlHttp.open("POST", url, true);
+		xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xmlHttp.setRequestHeader("Content-length", parameters.length);
+		xmlHttp.setRequestHeader("Connection", "close");
+		xmlHttp.onreadystatechange = function() {
+			if(xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+			alert(xmlHttp.responseText);
+			if(xmlHttp.responseText=="Success.Please Login again")
+				{
+				document.location.href='index.php';
+			document.getElementById("id01").style.display="none";
+				}
+			
+		}
+	}
+		xmlHttp.send(parameters);
+	}
 	function send()
 	{
 		var newvalue=document.getElementById("changedvalue").value;
