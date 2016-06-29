@@ -9,27 +9,26 @@
 	}
 	$user = $_GET['username'];
 	include('connect.php');
-	$sql = "SELECT username,name,email,phno,gender from users where username like'".$search_text."%'";
+	$sql = "SELECT username,name,email,phno,gender,Image from users where username like'".$user."%'";
 		$result = $conn->query($sql);
 	if ($result->num_rows == 1) {
-		while($row = $result->fetch_assoc());
+		$row1= $result->fetch_assoc();
 	}
 	else{
 		header('Location:profile.php');
 	}
+	
 ?>
 <html>
 	<head>
 	<title><?php echo $row['name']; ?></title>
-	<link href='profile page.css' rel='stylesheet'>
 	</head>
 	
 	<body>
 		<h1>Profile Page</h1>
-		<img src="<?php echo $row['Image']; ?>" height="300px" width="300px">
-
-		<?php 
-			echo "<br>".$row['username']."<br>".$row['email']."<br>".$row['phno'];
+		<?php echo '<img width="300" height="300" id="dp" src="data:image/jpeg;base64,'.base64_encode( $row1['Image'] ).'"/>';
+		
+			echo "<br>".$row1['username']."<br>".$row1['email']."<br>".$row1['phno'];
 		?>
 
 	</body>

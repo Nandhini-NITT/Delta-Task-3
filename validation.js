@@ -70,10 +70,10 @@ document.getElementById('fields').addEventListener("submit",function(e){
     var f = e.target;
     var form1 = new FormData(f);
     var xhttp = new XMLHttpRequest();
-	alert(xhttp);
+	
     xhttp.onreadystatechange = function () {
         if (xhttp.readyState == 4  && xhttp.status == 200 ) {
-				alert(xhttp.responseText);
+				
 				if (xhttp.responseText.search("Success")>=0) {
                 alert("Successfully registered");
                 window.location.href = 'profile.php';

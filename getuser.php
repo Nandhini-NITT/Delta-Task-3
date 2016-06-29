@@ -10,7 +10,7 @@ if(isset($_GET['search_text']))
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        //echo $row['username'];	
+        	
 	echo "<a href='viewprofile.php?username=".$row['username']."'><div id='suggestions'>".$row['username']."</div></a>";
 	}
 }
