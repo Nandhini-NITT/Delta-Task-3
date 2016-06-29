@@ -17,8 +17,8 @@
 			include "connect.php";
 			$user=$_POST["uname"];
 			$pass1=SHA1($_POST["password"]);
-			$sql=$conn->prepare("SELECT username,name,passcode,Image,email,phno,gender from users where username=?");
-			$sql->bind_param('s',$user);
+			$sql=$conn->prepare("SELECT username,name,passcode,Image,email,phno,gender from users where username=? or Phno=?");
+			$sql->bind_param('ss',$user,$user);
 			$sql->execute();
 			$row = new StdClass;
 			$row->id = null;
@@ -56,7 +56,7 @@
 		<h1 align="center">SIGNIN</h1>
 		<table>
 		<tr>
-			<td>Username:</td>
+			<td>Username or Phone number:</td>
 			<td><input type="text" name="uname"></td>
 		</tr>
 		<tr></tr>
