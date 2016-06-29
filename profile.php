@@ -10,15 +10,36 @@
 </head>
 <body>
 	<?php 
+		global $row;
+		$row= new StdClass;
+		$row->id = null;
+		$row->pass = "";
+		$row->image="";
+		$row->phno="";
+		$row->gender="";
+		$row->email="";
+		$row->name="";
 		session_start();
-		if(!isset($_SESSION)==1)
+		if(!isset($_SESSION['user']))
 		header("Location: index.php");
-
+		else
+		{	
+			include "connect.php";
+			$sql=$conn->prepare("SELECT username,name,passcode,Image,email,phno,gender from users where username=?");
+			$sql->bind_param('s',$_SESSION['user']);
+			$sql->execute();
+			$sql->store_result();
+			$sql->bind_result($row->id,$row->name,$row->pass,$row->image,$row->email,$row->phno,$row->gender);
+			$sql->fetch();
+		}
 	?>
 	<p align="center">Welcome  <?php	
 	echo '<br>';
-	?> &nbsp <span class='glyphicon glyphicon-search'></span><input type="text" placeholder="Find What's up with your friends" style="width:280px;"></p>
-<div id="img-holder">
+	?> &nbsp <form action="getuser.php" method="get"><button type="submit" name="submit"value="submit" class="btn btn-danger" onclick="showuser();">
+  <span class='glyphicon glyphicon-search'></span></button>
+  <input type="text" data-toggle="tooltip" data-placement="right" title="Enter username" name="search" placeholder="Find What's up with your friends" style="width:280px;"></p>
+	</form>
+  <div id="img-holder">
 <?php
 include "connect.php";
 echo '<img id="dp" src="data:image/jpeg;base64,'.base64_encode( $_SESSION['dp'] ).'"/>';
@@ -26,12 +47,12 @@ echo '<img id="dp" src="data:image/jpeg;base64,'.base64_encode( $_SESSION['dp'] 
 <button class="Edit" onClick="updatedp();">
           <span class="glyphicon glyphicon-pencil"></span>
 </button>
+</div>
 <div id="id01" class="modal">
 	
 	<div class="modal-content" id="change">
 		</div>
-	</div>
-</div>	
+	</div>	
 <div id="contents">
 	<h1 style="position:relative;left:25px">Contact Information</h1>
 	<hr color="black">
@@ -39,28 +60,28 @@ echo '<img id="dp" src="data:image/jpeg;base64,'.base64_encode( $_SESSION['dp'] 
 		<div id="name">
 		<tr>
 			<td width="30%">Name</td>
-			<td width="40%" id="valueName"><?php echo $_SESSION["name"];?></td>
+			<td width="40%" id="valueName"><?php echo $row->name;?></td>
 			<td width="20%"><button type="button" class="btn btn-default" onclick="updatename();"><span class="glyphicon glyphicon-pencil icon-success"></span> Edit</button></td>
 		</tr>
 		</div>
 		<div id="gender">
 		<tr>
 			<td>Gender</td>
-			<td id="valueGender"><?php echo $_SESSION["gender"];?></td>
+			<td id="valueGender"><?php echo $row->gender;?></td>
 			<td><button type="button" class="btn btn-default" onclick="updategender();"><span class="glyphicon glyphicon-pencil icon-success"></span> Edit</button></td>
 		</tr>
 		</div>
 		<div id="email">
 		<tr>
 			<td>Email</td>
-			<td id="valueEmail"><?php echo $_SESSION["email"];?></td>
+			<td id="valueEmail"><?php echo $row->email;?></td>
 			<td><button type="button" class="btn btn-default" onclick="updatemail();"><span class="glyphicon glyphicon-pencil icon-success"></span> Edit</button></td>
 		</tr>
 		</div>
 		<div id="phno">
 		<tr>
 			<td>Phone number</td>
-			<td id="valuePhno"><?php echo $_SESSION["phno"]; ?></td>
+			<td id="valuePhno"><?php echo $row->phno; ?></td>
 			<td><button type="button" class="btn btn-default" onclick="updatephno();"><span class="glyphicon glyphicon-pencil icon-success"></span> Edit</button></td>
 		</tr>
 		</div>
@@ -73,6 +94,18 @@ echo '<img id="dp" src="data:image/jpeg;base64,'.base64_encode( $_SESSION['dp'] 
 </div>
 <script>
 var param="";
+	/*function showuser()
+	{
+		var str=document.getElementById("search").value;
+		var xmlhttp=new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                document.getElementById("contents").innerHTML = xmlhttp.responseText;
+            }
+        };
+        xmlhttp.open("GET","getuser.php?q="+str,true);
+        xmlhttp.send();
+	}*/
 	function updatename()
 	{
 		param="Name";
@@ -197,5 +230,6 @@ var param="";
 	}
 	
 </script>
+
 </body>
 </html>

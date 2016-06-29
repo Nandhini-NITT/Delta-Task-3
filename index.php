@@ -17,28 +17,15 @@
 			include "connect.php";
 			$user=$_POST["uname"];
 			$pass1=SHA1($_POST["password"]);
-			$sql=$conn->prepare("SELECT username,name,passcode,Image,email,phno,gender from users where username=? or Phno=?");
+			$sql=$conn->prepare("SELECT username,passcode from users where username=? or Phno=?");
 			$sql->bind_param('ss',$user,$user);
 			$sql->execute();
-			$row = new StdClass;
-			$row->id = null;
-			$row->pass = "";
-			$row->image="";
-			$row->phno="";
-			$row->gender="";
-			$row->email="";
-			$row->name="";
-			$sql->bind_result($row->id,$row->name,$row->pass,$row->image,$row->email,$row->phno,$row->gender);
+			$sql->bind_result($name,$pass1);
 			while (($status = $sql->fetch()) === true) 
 			{ 
 				if($pass1===$row->pass)
 				{
-					$_SESSION["name"]=$row->name;
-					$_SESSION["user"]=$row->id;
-					$_SESSION["dp"]=$row->image;
-					$_SESSION["email"]=$row->email;
-					$_SESSION["phno"]=$row->phno;
-					$_SESSION["gender"]=$row->gender;
+					$_SESSION["user"]=$name;
 					header("Location: profile.php");
 				}
 			}

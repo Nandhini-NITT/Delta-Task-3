@@ -52,12 +52,7 @@
 			if($stmt->execute())
 			{
 				echo "Update successful";
-				$_SESSION["name"]=$fullname;
 				$_SESSION["user"]=$name;
-				$_SESSION["dp"]=$img;
-				$_SESSION["email"]=$email;
-				$_SESSION["phno"]=$phno;
-				$_SESSION["gender"]=$gender;
 				header("Location: profile.php");
 			}
 		}
