@@ -1,6 +1,19 @@
 <html>
 <head>
 	<title>Signup</title>
+	<script>
+	document.getElementById("files").onchange = function () {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+        // get loaded data and render thumbnail.
+        document.getElementById("imagepreview").src = e.target.result;
+    };
+
+    // read the image file as a data URL.
+    reader.readAsDataURL(this.files[0]);
+};
+	</script>
 	<link rel="stylesheet" type="text/css" href="register.css">
 </head>
 <body>
@@ -45,9 +58,10 @@
 			<tr>
 				<td>Profile Picture</td>
 				<input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
-				<td><input name="userfile" type="file" required/></td>
+				<td><input name="userfile" type="file" id="files" required/></td>
 				<td><span class="error">*</span></td>
 			</tr>
+				<tr><img id="imagepreview"></tr>
 		</table>
 		<br><br><br>
 	<button type="submit" name="submit" value="Submit" onclick="return validateForm();">Submit</button>

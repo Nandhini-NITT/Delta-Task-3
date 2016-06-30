@@ -16,14 +16,14 @@
 		{
 			include "connect.php";
 			$user=$_POST["uname"];
-			$pass1=SHA1($_POST["password"]);
+			$inputpass=SHA1($_POST["password"]);
 			$sql=$conn->prepare("SELECT username,passcode from users where username=? or Phno=?");
 			$sql->bind_param('ss',$user,$user);
 			$sql->execute();
 			$sql->bind_result($name,$pass1);
 			while (($status = $sql->fetch()) === true) 
 			{ 
-				if($pass1===$row->pass)
+				if($pass1===$inputpass)
 				{
 					$_SESSION["user"]=$name;
 					header("Location: profile.php");

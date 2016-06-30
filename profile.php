@@ -38,7 +38,7 @@
 	?> &nbsp 
   <span class='glyphicon glyphicon-search'></span>
   <input onkeyup="findmatch();" type="text" data-toggle="tooltip" data-placement="right" title="Enter username" id="search" placeholder="Find What's up with your friends" style="width:280px;"></p>
-	<div id="output"></div>
+	
   <div id="img-holder">
 <?php
 include "connect.php";
@@ -48,13 +48,16 @@ echo '<img id="dp" src="data:image/jpeg;base64,'.base64_encode( $row->image ).'"
           <span class="glyphicon glyphicon-pencil"></span>
 </button>
 </div>
+<div  id="output">
+	
+	</div>
 <div id="id01" class="modal">
 	
 	<div class="modal-content" id="change">
 		</div>
 	</div>	
 <div id="contents">
-	<h1 style="position:relative;left:25px">Contact Information</h1>
+	<h1 style="position:relative;left:25px;top:30px">Contact Information</h1><br>
 	<hr color="black">
 	<table>
 		<div id="name">
@@ -96,6 +99,7 @@ echo '<img id="dp" src="data:image/jpeg;base64,'.base64_encode( $row->image ).'"
 var param="";
 	function findmatch(){
 		var search_text = document.getElementById('search').value;
+		document.getElementById("output").style.display="block";
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function(){
 			if(xmlhttp.readyState == 4 &&  xmlhttp.status == 200){
