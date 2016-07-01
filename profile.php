@@ -7,6 +7,11 @@
 	<link href="bootstrap.min.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" type="text/css" href="profile.css">
 	<link href='https://fonts.googleapis.com/css?family=Lora:400,700italic' rel='stylesheet' type='text/css'>
+	<script>
+		window.addEventListener("click",function(e){
+														document.getElementById("output").style.display="none";
+													});
+	</script>
 </head>
 <body>
 	<?php 
@@ -37,17 +42,18 @@
 	echo '<br>';
 	?> &nbsp 
   <span class='glyphicon glyphicon-search'></span>
-  <input onkeyup="findmatch();" type="text" data-toggle="tooltip" data-placement="right" title="Enter username" id="search" placeholder="Find What's up with your friends" style="width:280px;"></p>
+  <input onkeyup="findmatch();" type="text"  data-toggle="tooltip" data-placement="right" title="Enter username or Phone number"
+  id="search" placeholder="Search with username or Phone Number" style="width:280px;"></p>
 	
   <div id="img-holder">
 <?php
 include "connect.php";
 echo '<img id="dp" src="data:image/jpeg;base64,'.base64_encode( $row->image ).'"/>';
-?>
-<button class="Edit" onClick="updatedp();">
+?></div>
+<button class="btn btn-info" id="Edit" onClick="updatedp();">
           <span class="glyphicon glyphicon-pencil"></span>
 </button>
-</div>
+
 <div  id="output">
 	
 	</div>
@@ -94,7 +100,10 @@ echo '<img id="dp" src="data:image/jpeg;base64,'.base64_encode( $row->image ).'"
 	<br>
 	<br>
 	<input type="button" onclick="document.location.href='logout.php'" value="Logout" style="position:relative;left:30%">
+	<br><br><br><br>
+	<p style="position:absolute;bottom:0;left:25%;font-size:15px">Made with <span style="font-size:150%;color:red;">&hearts;</span> by Nandhini</p>
 </div>
+
 <script>
 var param="";
 	function findmatch(){
@@ -115,7 +124,7 @@ var param="";
 		document.getElementById("name").style.display="none";
 		var modal=document.getElementById("id01");
 		modal.style.display="block";
-		document.getElementById("change").innerHTML="<button onclick=document.getElementById('id01').style.display='none';><span class='glyphicon glyphicon-remove'></span></button><center><table><tr><td>Enter Name:</td><td><input type='text' id='changedvalue'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
+		document.getElementById("change").innerHTML="<button onclick=document.getElementById('id01').style.display='none';><span class='glyphicon glyphicon-remove'></span></button><center><table><tr><td>Enter Name:</td><td><input type='text' id='changedvalue' autofocus></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
 	}
 	function updategender()
 	{
@@ -123,7 +132,7 @@ var param="";
 		document.getElementById("gender").style.display="none";
 		var modal=document.getElementById("id01");
 		modal.style.display="block";
-		document.getElementById("change").innerHTML="<button onclick=document.getElementById('id01').style.display='none';><span class='glyphicon glyphicon-remove'></span></button><center><table><tr><td>Gender:</td><td><input type='text' id='changedvalue'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
+		document.getElementById("change").innerHTML="<button onclick=document.getElementById('id01').style.display='none';><span class='glyphicon glyphicon-remove'></span></button><center><table><tr><td>Gender:</td><td><input type='text' id='changedvalue' autofocus></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
 	}
 	function updatemail()
 	{
@@ -131,17 +140,18 @@ var param="";
 		document.getElementById("email").style.display="none";
 		var modal=document.getElementById("id01");
 		modal.style.display="block";
-		document.getElementById("change").innerHTML="<button onclick=document.getElementById('id01').style.display='none';><span class='glyphicon glyphicon-remove'></span></button><center><table><tr><td>Email Id:</td><td><input type='email' id='changedvalue'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
+		document.getElementById("change").innerHTML="<button onclick=document.getElementById('id01').style.display='none';><span class='glyphicon glyphicon-remove'></span></button><center><table><tr><td>Email Id:</td><td><input type='email' id='changedvalue' autofocus></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
 	}
 	function updatephno()
 	{
 		param="Phno";
 		var modal=document.getElementById("id01");
 		modal.style.display="block";
-		document.getElementById("change").innerHTML="<button onclick=document.getElementById('id01').style.display='none';><span class='glyphicon glyphicon-remove'></span></button><center><table><tr><td>Phone Number:</td><td><input type='text' id='changedvalue'></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
+		document.getElementById("change").innerHTML="<button onclick=document.getElementById('id01').style.display='none';><span class='glyphicon glyphicon-remove'></span></button><center><table><tr><td>Phone Number:</td><td><input type='text' id='changedvalue' autofocus></td><td><button onclick='send()'>Submit</button></td></tr></table></center>";
 	}
 	function updatedp()
 	{
+		alert("called");
 		param="Image";
 		var modal=document.getElementById("id01");
 		modal.style.display="block";
@@ -151,7 +161,7 @@ var param="";
 		var modal=document.getElementById("id01");
 		modal.style.display="block";
 		var text="<button onclick=document.getElementById('id01').style.display='none';><span class='glyphicon glyphicon-remove'></span></button><center>";
-		text+="<table><tr><td>Enter old Password:</td><td><input type='password' name='oldpass' id='oldpass'></td></tr>";
+		text+="<table><tr><td>Enter old Password:</td><td><input type='password' name='oldpass' id='oldpass' autofocus></td></tr>";
 		text+="<tr><td>Enter New Password:</td><td><input type='password' name='newpass' id='newpass'></td></tr>";
 		text+="<tr><td>Confirm New Password:</td><td><input type='password' name='confirmpass' id='confirmpass'></td></tr>";
 		text+="<tr><td></td><td><button onclick='AjaxChangePass();'>Submit</button>";

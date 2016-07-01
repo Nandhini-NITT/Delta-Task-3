@@ -29,6 +29,7 @@
 	}
 	
 ?>
+<a href="profile.php" style="position:absolute;left:5%;top:10%;font-size:20px"><=Back to your profile</a>
 <div style="position:relative;left:40%">
 <span class='glyphicon glyphicon-search'></span>
   <input onkeyup="findmatch();" type="text" data-toggle="tooltip" data-placement="right" title="Enter username" id="search" placeholder="Find What's up with your friends" style="width:280px;"></p>
@@ -68,7 +69,10 @@ echo '<img id="dp" src="data:image/jpeg;base64,'.base64_encode( $row1['Image'] )
 	</table>
 	<br>
 	<input type="button" onclick="document.location.href='logout.php'" value="Logout" style="position:relative;left:30%">
+	<br><br><br><br>
+	<p style="position:absolute;bottom:0;left:25%;font-size:15px">Made with <span style="font-size:150%;color:red;">&hearts;</span> by Nandhini</p>
 </div>
+
 	<script>
 		function findmatch(){
 		var search_text = document.getElementById('search').value;

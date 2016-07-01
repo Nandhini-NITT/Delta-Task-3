@@ -1,19 +1,7 @@
 <html>
 <head>
 	<title>Signup</title>
-	<script>
-	document.getElementById("files").onchange = function () {
-    var reader = new FileReader();
-
-    reader.onload = function (e) {
-        // get loaded data and render thumbnail.
-        document.getElementById("imagepreview").src = e.target.result;
-    };
-
-    // read the image file as a data URL.
-    reader.readAsDataURL(this.files[0]);
-};
-	</script>
+	
 	<link rel="stylesheet" type="text/css" href="register.css">
 </head>
 <body>
@@ -52,7 +40,7 @@
 			</tr>
 			<tr>
 				<td>Password:</td>
-				<td><input type="password" name="pass" required></td>
+				<td><input type="password" name="pass" data-toggle="tooltip" data-placement="right" title="Password must contain minimum 5 characters,1 uppercase letter,1 lowercase letter and 1 number" required></td>
 				<td><span class="error">*</span><td>
 			</tr>
 			<tr>
@@ -66,6 +54,7 @@
 		<br><br><br>
 	<button type="submit" name="submit" value="Submit" onclick="return validateForm();">Submit</button>
 	</form>
+	<p style="position:absolute;bottom:0;left:45%">Made with <span style="font-size:150%;color:red;">&hearts;</span> by Nandhini</p>
 <script  src="validation.js" type="text/javascript" >
     </script>
 </body>

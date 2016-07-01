@@ -58,5 +58,7 @@
 		<button type="submit" name="submit" value="Submit">Submit</button>
 	</form>
 	<p style="top:55%;left:85%;position:absolute">Not registered yet?<input type="button" onClick="document.location.href='adduser.php'" value="Signup">
+	<p style="position:absolute;bottom:0;left:45%">Made with <span style="font-size:150%;color:red;">&hearts;</span> by Nandhini</p>
+
 </body>
 </html>

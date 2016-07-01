@@ -4,7 +4,7 @@ if(isset($_GET['search_text']))
 	$search_text=$_GET['search_text'];
 	if(!empty($search_text)){
 		include "connect.php";
-		$sql = "SELECT username,name,email,phno,gender from users where username like'%".$search_text."%'";
+		$sql = "SELECT username,name,email,phno,gender from users where username like'%".$search_text."%' or phno like '".$search_text."%'";
 		$result = $conn->query($sql);
 
 	if ($result->num_rows > 0) {
